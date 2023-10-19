@@ -6,10 +6,12 @@ import (
 	"strings"
 )
 
+const DownloadedFileFormat = "%(title)s [%(id)s].%(ext)s"
+
 func ytDlpCommand(args CmdArgs) string {
-	var fileName = DefaultFileFormat
+	var outputFileName = DownloadedFileFormat
 	if args.FileFormat != "" {
-		fileName = args.FileFormat
+		outputFileName = args.FileFormat
 	}
 	cmd := strings.Join([]string{
 		"/usr/bin/youtube-dl",
@@ -22,7 +24,7 @@ func ytDlpCommand(args CmdArgs) string {
 		"-f bestaudio[ext=m4a]",
 		"--extract-audio",
 		"--cookies /tmp/ytdlp-cookies",
-		"--output=\"" + filepath.Join(args.Dir, fileName) + "\"",
+		"--output=\"" + filepath.Join(args.Dir, outputFileName) + "\"",
 		// Extracting thumbnail Is causing trouble for opus youtube videos
 		// But works fine for m4a
 		// "--embed-thumbnail",

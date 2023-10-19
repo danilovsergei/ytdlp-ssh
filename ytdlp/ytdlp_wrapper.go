@@ -6,7 +6,6 @@ import (
 	"ytlpd-ssh/sshclient"
 )
 
-const DefaultFileFormat = "%(title)s [%(id)s].%(ext)s"
 const cookieFile = "/tmp/ytdlp-cookies"
 
 type CmdArgs struct {
