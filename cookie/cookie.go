@@ -47,7 +47,6 @@ type cookies struct {
 	cookies map[string][]cookie
 }
 
-const cookieStorePath = "/home/sdanilov/.config/google-chrome/Profile 3/Cookies"
 const QueryChromiumCookie = `SELECT name, encrypted_value, host_key, path, creation_utc, expires_utc, is_secure, is_httponly, has_expires, is_persistent FROM cookies`
 
 type OutputFormat int
