@@ -13,10 +13,12 @@ func parseFlags() ytdlp.CmdArgs {
 	var url string
 	var sshKey string
 	var sshHost string
+	var email string
 	flag.StringVar(&dir, "dir", "", "output directory to save download")
 	flag.StringVar(&url, "url", "", "download url")
 	flag.StringVar(&sshKey, "sshKey", "", "ssh key file path")
 	flag.StringVar(&sshHost, "sshHost", "", "ssh user@hostname to login")
+	flag.StringVar(&email, "email", "", "email to find chrome profile if there are multiple chrome profiles exist")
 	flag.Parse()
 
 	if dir == "" {
@@ -36,6 +38,7 @@ func parseFlags() ytdlp.CmdArgs {
 	return ytdlp.CmdArgs{
 		Url:      url,
 		Dir:      dir,
+		Email:    email,
 		SshCreds: sshclient.SshCreds{User: user, Host: host, KeyFile: sshKey},
 	}
 }

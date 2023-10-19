@@ -10,6 +10,7 @@ require (
 	github.com/gonuts/binary v0.2.0 // indirect
 	github.com/jszwec/csvutil v1.8.0 // indirect
 	github.com/keybase/go-keychain v0.0.0-20230523030712-b5615109f100 // indirect
+	github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f // indirect
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/ppacher/go-dbus-keyring v1.0.1 // indirect
 	github.com/zalando/go-keyring v0.2.3 // indirect

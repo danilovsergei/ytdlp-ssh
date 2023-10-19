@@ -17,6 +17,7 @@ import (
 	"time"
 	"ytlpd-ssh/cookie/gnome"
 	"ytlpd-ssh/cookie/kwallet"
+	"ytlpd-ssh/cookie/linux/chrome"
 
 	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/pbkdf2"
@@ -49,13 +50,9 @@ type cookies struct {
 
 const QueryChromiumCookie = `SELECT name, encrypted_value, host_key, path, creation_utc, expires_utc, is_secure, is_httponly, has_expires, is_persistent FROM cookies`
 
-type OutputFormat int
+const cookiesDb = "Cookies"
 
-// Finds chrome profile folder by provided email
-func findChromeProfile(email string) (string, error) {
-	// TODO write function to
-	return "", nil
-}
+type OutputFormat int
 
 func CopyToLocalPath(src, dst string) error {
 	locals, _ := filepath.Glob("*")
@@ -82,8 +79,8 @@ func (c *cookies) CopyDB(chromeCookiesDb string) error {
 	return CopyToLocalPath(chromeCookiesDb, "/tmp/chrome_cookies")
 }
 
-func (c *cookies) ChromeParse() error {
-	c.CopyDB(cookieStorePath)
+func (c *cookies) ChromeParse(db string) error {
+	c.CopyDB(db)
 
 	c.cookies = make(map[string][]cookie)
 	cookieDB, err := sql.Open("sqlite3", "/tmp/chrome_cookies")
@@ -261,8 +258,9 @@ func (c *cookies) outPut() string {
 	return out.String()
 }
 
-func ParseCookies() string {
+func ParseCookies(email string) string {
 	c := cookies{}
-	c.ChromeParse()
+	db := filepath.Join(chrome.FindChromeProfile(email), cookiesDb)
+	c.ChromeParse(db)
 	return c.outPut()
 }
