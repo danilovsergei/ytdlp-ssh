@@ -6,8 +6,13 @@ Handy features:
 - Prints remote output to console the same way like yt-dlp runs locally
 - Automatically detects chrome profile to copy cookies.
 - For users with multiple chrome profiles allows to find chrome profile by associated with it gmail account by provided --email
+- [Improved m4a files spliting by chapter with preserving metadata](https://github.com/danilovsergei/yt-dlp-split-and-tag) 
+
 
 # Usage
+It uses custom m4a posprocesstor splitter because of the [yt-dlp bug in splitting m4a files](https://github.com/yt-dlp/yt-dlp/issues/8363).\
+[SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) postprocesstor needs to be installed first on the remote ssh host per [README](https://github.com/danilovsergei/yt-dlp-split-and-tag).\
+It gives correct metadata during splitting m4a files by chapters
 
 Minimal required arguments:
 
