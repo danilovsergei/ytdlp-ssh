@@ -42,7 +42,8 @@ go run main.go --preset=m4a_split_and_tag
 
 ## Presets
 Preset allows to pass predefined set of flags to the yt-dlp.
-There are couple of predefined presets examples located at [ytdlp-ssh/presets](https://github.com/danilovsergei/ytdlp-ssh/tree/main/presets)
+There are couple of predefined presets examples located at [ytdlp-ssh/presets](https://github.com/danilovsergei/ytdlp-ssh/tree/main/presets).\
+By default ytdlp-ssh uses [best_audio](https://github.com/danilovsergei/ytdlp-ssh/blob/main/presets/best_audio.preset) preset which downloads audio only and automatically picks file format with best available quality
 
 Pass the --preset flag to ytdlp-ssh to specify preset
 
