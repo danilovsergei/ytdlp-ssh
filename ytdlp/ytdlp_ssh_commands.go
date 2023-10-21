@@ -6,7 +6,9 @@ import (
 
 const DownloadedFileFormat = "%(title)s [%(id)s].%(ext)s"
 
-// Loads yt-dlp command from provided preset.
+// Converts provided preset to the ready to execute yt-dlp command
+//
+// All not relevant information such as comments and whitespaces is stripped down from the preset
 func ytDlpCommand(args *CmdArgs) string {
 	preset := loadPreset(args)
 	var ytlpCmd []string
@@ -20,6 +22,9 @@ func ytDlpCommand(args *CmdArgs) string {
 	return strings.Join(ytlpCmd, " ")
 }
 
+// Saves browser cookies to the file on remote ssh server.
+//
+// At the moment remote file name is hard coded in cookieFile
 func saveCookiesToFileCommand(cookies string) string {
 	return "echo -e '" + cookies + "' > " + cookieFile
 }

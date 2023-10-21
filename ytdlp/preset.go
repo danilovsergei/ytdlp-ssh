@@ -16,7 +16,6 @@ const presetsDir = "presets"
 //
 // Uses either absolutel path or tries to guess preset path if only preset name provided
 // Searches preset by name in {binary dir}/presets, {current dir}/presets or ~/.config/ytdlp-ssh/presets
-
 func loadPreset(args *CmdArgs) []string {
 	presetPath := args.Preset
 	if !filepath.IsAbs(presetPath) {
