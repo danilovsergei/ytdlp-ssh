@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 	"strings"
 	"ytlpd-ssh/sshclient"
 	"ytlpd-ssh/ytdlp"
@@ -14,12 +15,23 @@ func parseFlags() ytdlp.CmdArgs {
 	var sshKey string
 	var sshHost string
 	var email string
+	var preset string
+
 	flag.StringVar(&dir, "dir", "", "output directory to save download")
 	flag.StringVar(&url, "url", "", "download url")
 	flag.StringVar(&sshKey, "sshKey", "", "ssh key file path")
 	flag.StringVar(&sshHost, "sshHost", "", "ssh user@hostname to login")
 	flag.StringVar(&email, "email", "", "email to find chrome profile if there are multiple chrome profiles exist")
+	flag.StringVar(&preset, "preset", "best_audio", "preset file with predefined yt-dlp flags.\n"+
+		"Could be either absolute path or just preset name, eg. m4a.\n"+
+		"Preset by name will be searched in {binary dir}/presets, {current dir}/presets or ~/.config/ytdlp-ssh/presets")
+
 	flag.Parse()
+
+	if flag.NFlag() == 0 {
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	if dir == "" {
 		log.Fatalln("--dir is empty. Downloads dir must be provided")
@@ -37,9 +49,10 @@ func parseFlags() ytdlp.CmdArgs {
 	user, host := parseUserHost(sshHost)
 	return ytdlp.CmdArgs{
 		Url:      url,
-		Dir:      dir,
+		OutDir:   dir,
 		Email:    email,
 		SshCreds: sshclient.SshCreds{User: user, Host: host, KeyFile: sshKey},
+		Preset:   preset,
 	}
 }
 
@@ -50,5 +63,5 @@ func parseUserHost(hostFlag string) (user, host string) {
 
 func main() {
 	cmdArgs := parseFlags()
-	ytdlp.ExecuteYtDlp(cmdArgs)
+	ytdlp.ExecuteYtDlp(&cmdArgs)
 }

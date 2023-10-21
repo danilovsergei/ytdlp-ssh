@@ -1,41 +1,23 @@
 package ytdlp
 
 import (
-	"log"
-	"path/filepath"
 	"strings"
 )
 
 const DownloadedFileFormat = "%(title)s [%(id)s].%(ext)s"
 
-func ytDlpCommand(args CmdArgs) string {
-	var outputFileName = DownloadedFileFormat
-	if args.FileFormat != "" {
-		outputFileName = args.FileFormat
+// Loads yt-dlp command from provided preset.
+func ytDlpCommand(args *CmdArgs) string {
+	preset := loadPreset(args)
+	var ytlpCmd []string
+	for _, line := range preset {
+		line = strings.TrimSpace(line)
+		if line == "" || strings.HasPrefix(line, "//") {
+			continue
+		}
+		ytlpCmd = append(ytlpCmd, line)
 	}
-	cmd := strings.Join([]string{
-		"/usr/bin/youtube-dl",
-		"--retries infinite",
-		// It sets output directory for split-chapters
-		"-P " + "\"" + args.Dir + "\"",
-		// That would download OPUS from youtube
-		// Opus is higher quality and better but not supported by direct play at Plex
-		//"-f bestaudio",
-		"-f bestaudio[ext=m4a]",
-		"--extract-audio",
-		"--cookies /tmp/ytdlp-cookies",
-		"--output=\"" + filepath.Join(args.Dir, outputFileName) + "\"",
-		// Extracting thumbnail Is causing trouble for opus youtube videos
-		// But works fine for m4a
-		// "--embed-thumbnail",
-		"--add-metadata",
-		"--verbose",
-		// custom post processor to split by chapter and tag
-		"--use-postprocessor SplitAndTag:when=after_move",
-		args.Url,
-	}, " ")
-	log.Printf("\ncommand: %s\n", cmd)
-	return cmd
+	return strings.Join(ytlpCmd, " ")
 }
 
 func saveCookiesToFileCommand(cookies string) string {

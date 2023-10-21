@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"ytlpd-ssh/common/filesystem"
 
 	"github.com/kirsle/configdir"
 )
@@ -56,19 +57,7 @@ func isChromeProfileDir(path string) (bool, fs.FileInfo) {
 	if !stat.IsDir() {
 		return false, nil
 	}
-	return isFileExists(filepath.Join(path, preferencesFile)), stat
-}
-
-func isFileExists(file string) bool {
-	_, err := os.Stat(file)
-	if err != nil {
-		if os.IsNotExist(err) {
-			return false
-		} else {
-			log.Fatalf("Failed to find chrome profile: %s", err)
-		}
-	}
-	return true
+	return filesystem.IsFileExists(filepath.Join(path, preferencesFile)), stat
 }
 
 func hasEmail(profileDir, email string) bool {

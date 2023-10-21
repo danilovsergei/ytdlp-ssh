@@ -1,0 +1,17 @@
+// Downloads audio only in best available m4a quality
+// Uses  SplitAndTag https://github.com/danilovsergei/yt-dlp-split-and-tag postprocessor to correctly split m4a files
+// SplitAndTag must be installed on the remote ssh machine first
+
+/usr/bin/yt-dlp
+--retries infinite
+// It sets output directory for split-chapters
+-P "{{.OutDir}}"
+-f bestaudio[ext=m4a]
+--extract-audio
+--cookies /tmp/ytdlp-cookies
+--output="{{.OutDir}}/%(title)s [%(id)s].%(ext)s"
+--add-metadata
+--verbose
+// custom post processor to split by chapter and tag
+--use-postprocessor SplitAndTag:when=after_move
+{{.Url}}	

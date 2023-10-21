@@ -1,0 +1,13 @@
+// Downloads audio only in best available m4a quality
+
+/usr/bin/yt-dlp
+--retries infinite
+// It sets output directory for split-chapters
+-P "{{.OutDir}}"
+-f bestaudio[ext=m4a]
+--extract-audio
+--cookies /tmp/ytdlp-cookies
+--output="{{.OutDir}}/%(title)s [%(id)s].%(ext)s"
+--add-metadata
+--verbose
+{{.Url}}	
