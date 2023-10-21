@@ -11,10 +11,6 @@ Handy features:
 
 
 # Usage
-It uses custom m4a posprocesstor splitter because of the [yt-dlp bug in splitting m4a files](https://github.com/yt-dlp/yt-dlp/issues/8363).\
-[SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) postprocesstor needs to be installed first on the remote ssh host per [README](https://github.com/danilovsergei/yt-dlp-split-and-tag).\
-It gives correct metadata during splitting m4a files by chapters
-
 Minimal required arguments:
 
 ```
@@ -33,19 +29,22 @@ In case there are multiple chrome profiles it's possible to specify email associ
 go run main.go --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT" --email="myuser@gmail.com"
 ```
 
-# Supported systems
-## SSH Client
-* Only linux is supported as client OS , mainly because cookie decryption implemnted only for Linux
-* Only chrome supported as browser . mainly because of the cookies reading and decryption
+## Custom SplitAndTag postprocessor
+ytdlp-ssh could use custom m4a [SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag)  posprocesstor because of the [yt-dlp bug in splitting m4a files](https://github.com/yt-dlp/yt-dlp/issues/8363).\
+[SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) saves correct metadata during splitting m4a files by chapters
 
-## SSH Server
-* Only *NIX systems are supported at the moment. Because of the shell specific commands for working with files
+[SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) postprocesstor needs to be installed first on the remote ssh host per [README](https://github.com/danilovsergei/yt-dlp-split-and-tag).
 
-# Presets
+There is a predefined [m4a_split_and_tag](https://github.com/danilovsergei/ytdlp-ssh/blob/main/presets/m4a_split_and_tag.preset) preset which uses [SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) postprocessor
+```
+go run main.go --preset=m4a_split_and_tag
+```
+
+## Presets
 Preset allows to pass predefined set of flags to the yt-dlp.
 There are couple of predefined presets examples located at [ytdlp-ssh/presets](https://github.com/danilovsergei/ytdlp-ssh/tree/main/presets)
 
-Pass the --preset flag to ytdlp-ssh
+Pass the --preset flag to ytdlp-ssh to specify preset
 
 ```
 # By preset name
@@ -59,7 +58,7 @@ When short preset name passed like --preset=m4a presets could be located in :
 - {current_dir}/presets
 - local config dir, eg. /home/{username}}/.config/ytdlp-ssh/presets/
 
-## Write new preset
+### Write new preset
 See some predefined presets at [ytdlp-ssh/presets](https://github.com/danilovsergei/ytdlp-ssh/tree/main/presets).
 
 Preset is just regular text file where each argument is on the new line for readability.\
@@ -90,3 +89,11 @@ All exposed command line args are defined in [cmdargs.go#CmdArgs](https://github
 
 Presets also support comments if text is prepended with //
 
+
+# Supported systems
+## SSH Client
+* Only linux is supported as client OS , mainly because cookie decryption implemnted only for Linux
+* Only chrome supported as browser . mainly because of the cookies reading and decryption
+
+## SSH Server
+* Only *NIX systems are supported at the moment. Because of the shell specific commands for working with files
