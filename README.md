@@ -66,6 +66,9 @@ Preset is just regular text file where each argument is on the new line for read
 yt-dlp path and arguments listed as is the same way they would be listed in terminal
 
 ```
+// Downloads audio only in best available audio quality
+// File format with highest available quality picked automatically
+
 /usr/bin/yt-dlp
 --retries infinite
 // It sets output directory for split-chapters
@@ -79,9 +82,11 @@ yt-dlp path and arguments listed as is the same way they would be listed in term
 {{.Url}}
 ```
 
-There is one exception though like {{.Url}} and {{.OutDir}}
+There is one exception though , eg. {{.Url}} and {{.OutDir}}
 
-These are [Command line args](https://github.com/danilovsergei/ytdlp-ssh/blob/main/ytdlp/cmdargs.go) provided to ytdlp-ssh exposed to the preset for the flexibility.\
+These are [Command line args](https://github.com/danilovsergei/ytdlp-ssh/blob/main/ytdlp/cmdargs.go) provided to ytdlp-ssh and exposed to the preset.\
 Any [command line argument](https://github.com/danilovsergei/ytdlp-ssh/blob/main/ytdlp/cmdargs.go) could be accessed using {.<arg_name>} syntax. For details see [go templates](https://pkg.go.dev/text/template).\
-All exposed command line args are defined at [cmdargs.go#CmdArgs](https://github.com/danilovsergei/ytdlp-ssh/blob/main/ytdlp/cmdargs.go)
+All exposed command line args are defined in [cmdargs.go#CmdArgs](https://github.com/danilovsergei/ytdlp-ssh/blob/main/ytdlp/cmdargs.go)
+
+Presets also support comments if text is prepended with //
 
