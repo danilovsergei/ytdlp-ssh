@@ -14,7 +14,7 @@ Handy features:
 Minimal required arguments:
 
 ```
-go run main.go --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT"
+ytdlp-ssh --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT"
 ```
 
 --dir  - directrory on the remote host to save downloaded files\
@@ -26,7 +26,7 @@ go run main.go --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey
 In case there are multiple chrome profiles it's possible to specify email associated with chrome profile to find it:
 
 ```
-go run main.go --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT" --email="myuser@gmail.com"
+ytdlp-ssh --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT" --email="myuser@gmail.com"
 ```
 
 ## Custom SplitAndTag postprocessor
@@ -37,7 +37,7 @@ ytdlp-ssh could use custom m4a [SplitAndTag](https://github.com/danilovsergei/yt
 
 There is a predefined [m4a_split_and_tag](https://github.com/danilovsergei/ytdlp-ssh/blob/main/presets/m4a_split_and_tag.preset) preset which uses [SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag) postprocessor
 ```
-go run main.go --preset=m4a_split_and_tag
+ytdlp-ssh --preset=m4a_split_and_tag
 ```
 
 ## Presets
@@ -49,9 +49,9 @@ Pass the --preset flag to ytdlp-ssh to specify preset
 
 ```
 # By preset name
-go run main.go --preset=m4a
+ytdlp-ssh --preset=m4a
 # By absolute path
-go run main.go --preset=/home/testuser/temp/m4a.preset
+ytdlp-ssh --preset=/home/testuser/temp/m4a.preset
 ```
 
 When short preset name passed like --preset=m4a presets could be located in :
