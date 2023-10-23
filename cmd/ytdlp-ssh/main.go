@@ -1,4 +1,4 @@
-package ytdlpssh
+package main
 
 import (
 	"flag"
