@@ -28,6 +28,19 @@ In case there are multiple chrome profiles it's possible to specify email associ
 ```
 ytdlp-ssh --dir="<REMOTE_HOST_DIR>" --url="<SUPPORTED_YT_DLP_URL>" --sshKey="<PRIVATE_KEY_PATH>" --sshHost="<USERNAME>@HOSTNAME:PORT" --email="myuser@gmail.com"
 ```
+## Ytdlp-ssh flags config
+Its possible to save common Ytdlp-ssh flags such as sshHost to the config\
+Ytdlp-ssh is looking for the config using [platform specific ConfigDir](https://github.com/kirsle/configdir#configdir-for-go)
+* On linux at $HOME/.config/ytdlp-ssh/flags.ini
+
+Config format is plain key=value. No escaping is required. For example
+
+```
+sshKey=/home/username/.ssh/private_key
+sshHost=root@hostname.com:22
+email=username@gmail.com
+```
+
 
 ## Custom SplitAndTag postprocessor
 ytdlp-ssh could use custom m4a [SplitAndTag](https://github.com/danilovsergei/yt-dlp-split-and-tag)  posprocesstor because of the [yt-dlp bug in splitting m4a files](https://github.com/yt-dlp/yt-dlp/issues/8363).\

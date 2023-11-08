@@ -4,10 +4,15 @@ import (
 	"flag"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
+	"ytlpd-ssh/common/filesystem"
+	"ytlpd-ssh/common/flags"
 	"ytlpd-ssh/sshclient"
 	"ytlpd-ssh/ytdlp"
 )
+
+const flagsConfig = "flags.ini"
 
 func parseFlags() ytdlp.CmdArgs {
 	var dir string
@@ -27,11 +32,11 @@ func parseFlags() ytdlp.CmdArgs {
 		"Preset by name will be searched in {binary dir}/presets, {current dir}/presets or ~/.config/ytdlp-ssh/presets")
 
 	flag.Parse()
-
 	if flag.NFlag() == 0 {
 		flag.Usage()
 		os.Exit(1)
 	}
+	flags.SetFlagsFromConfig(filepath.Join(filesystem.YtdlpSshConfigDir(), flagsConfig))
 
 	if dir == "" {
 		log.Fatalln("--dir is empty. Downloads dir must be provided")
