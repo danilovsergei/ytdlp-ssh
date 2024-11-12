@@ -12,7 +12,7 @@ const cookieFile = "/tmp/ytdlp-cookies"
 //
 //	yt-dlp receives cookies copied from chrome browser on ssh client
 func ExecuteYtDlp(cmdArgs *CmdArgs) {
-	cookies := cookie.ParseCookies(cmdArgs.Email)
+	cookies := cookie.ParseCookesWithRookie()
 	conn := sshclient.ConnectWithKey(cmdArgs.SshCreds)
 
 	if !conn.IsFileOrDirExists(cmdArgs.OutDir) {

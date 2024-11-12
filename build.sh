@@ -8,6 +8,8 @@ cd "$project_dir/cmd/ytdlp-ssh"
 go build -ldflags="-s -w" -o $bin/ytdlp-ssh
 cp -r $presets_dir $bin"/"
 
+cp $project_dir/rookie/bin/ytdlp-rookie $bin/ytdlp-rookie
+
 cd  $project_dir"/bin"
 upx ytdlp-ssh/ytdlp-ssh
 zip -r $timestamp-release.zip ytdlp-ssh 

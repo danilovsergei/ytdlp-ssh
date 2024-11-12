@@ -1,0 +1,13 @@
+[package]
+name = "ytdlp-rookie" # Choose a name for your project
+version = "0.1.0"    # You can start with any version number
+edition = "2021"     # Specify the Rust edition
+
+[[bin]]
+name = "ytdlp-rookie"  # This should match your project name
+path = "main.rs"
+
+[dependencies]
+rookie = "0.5.6"
+
+

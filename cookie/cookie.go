@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -263,4 +264,27 @@ func ParseCookies(email string) string {
 	db := filepath.Join(chrome.FindChromeProfile(email), cookiesDb)
 	c.ChromeParse(db)
 	return c.outPut()
+}
+
+func (c *cookies) CookiesFromRookie() string {
+	// expect ytdlp-rookie is located in the same dir as ytdlp-ssh
+	exeDir, err := os.Executable()
+	if err != nil {
+		log.Fatal(err)
+	}
+	exeDir = filepath.Dir(exeDir)
+
+	cmd := exec.Command(filepath.Join(exeDir, "ytdlp-rookie"))
+
+	out, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(out)
+}
+
+func ParseCookesWithRookie() string {
+	c := cookies{}
+	return c.CookiesFromRookie()
 }
