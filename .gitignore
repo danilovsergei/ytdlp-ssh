@@ -1,2 +1,4 @@
 bin/
+rookie/target/
+rookie/Cargo.lock
 run.sh
